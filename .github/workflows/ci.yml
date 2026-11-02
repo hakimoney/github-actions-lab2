@@ -1,0 +1,24 @@
+
+name: Verification CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le code
+        uses: actions/checkout@v4
+
+      - name: Verifier la page HTML
+        run: |
+          test -f index.html
+          grep -qi "<title>" index.html
+
+      - name: Confirmer le resultat
+        run: echo "Verification reussie !"
